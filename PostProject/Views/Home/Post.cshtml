@@ -1,0 +1,90 @@
+﻿@model IEnumerable<PostProject.Models.PostModel>
+@{
+    ViewBag.Title = "Post";
+}
+
+<h2>Post</h2>
+
+    <div class="massageBlock">
+        <div class="insideMassageBlock">
+            <div class="inputBlock">
+                <div class="Text">Title</div>
+                <div class="Input">
+                    <input type="text" id="Title">
+                </div>
+            </div>
+            <div class="inputBlock">
+                <div class="Text">Text</div>
+                <div class="Input">
+                    <textarea rows="6" cols="21" id="Description"></textarea>
+                </div>
+            </div>
+            <div class="inputBlock">
+                <button id="submit" type="button">Send Post</button>
+            </div>
+        </div>
+    </div>
+<div id="result"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        alert("Document ready");
+        $('#submit').click(function () {
+            alert("submit clicked");
+            var title = $("#Title").val();
+            var description = $("#Description").val();
+            $.ajax({
+                url: '@Url.Action("SentPost","Home")',
+                type: "POST",
+                data: {Title: title, Description: description},
+                dataType: "html",
+                success: function (data) {
+                    $("#result").html(data);
+                }
+            });
+
+        });
+        $.ajax({
+            url: '@Url.Action("ShowAllPosts","Home")',
+            type: "POST",
+            dataType: "html",
+            success: function (data) {
+                $("#result").html(data);
+            }
+        });
+        $('.button').click(function () {
+            alert("Button click ready");
+            var ID = $("#ID").val();
+
+        });
+    });
+
+</script>
+    @*@if (Model != null)
+    {
+        foreach (var inst in Model)
+        {
+            <div class="bl-Main">
+                <div class="bl-info">
+                    <div class="bl-tit">
+                        <div class="name">Misha Volinets</div>
+                        <form method="post" action="/Home/DeletePost?id=@inst.Id" name="DeleteForm">
+                            <a href="#" class="button" onClick="document.forms.DeleteForm.submit();">Видалити</a>
+                        </form>
+                    </div>
+                    <div class="bl-tit">
+                        <div class="date">@inst.DateOfCreate</div>
+                        <form method="post" action="/Home/EditPost?id=@inst.Id" name="EditForm">
+                            <a href="#" class="button" onClick="document.forms.EditForm.submit();">Редагувати</a>
+                        </form>
+                    </div>
+                </div>
+                <div class="bl-title" id="@(inst.Id)">
+                    @inst.Title
+
+                </div>
+                <div class="bl-description">
+                    <p>@inst.Description</p>
+                </div>
+            </div>
+        }
+    }*@

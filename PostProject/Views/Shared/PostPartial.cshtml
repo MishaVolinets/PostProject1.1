@@ -1,0 +1,28 @@
+﻿@model IEnumerable<PostProject.Models.PostModel>
+
+@foreach (var inst in Model)
+{
+<input type="hidden" id="ID" value="@inst.Id" />
+<div class="bl-Main">
+    <div class="bl-info">
+        <div class="bl-tit">
+            <div class="name">Misha Volinets</div>
+                
+                <button class="button">Видалити</button>
+        </div>
+        <div class="bl-tit">
+            <div class="date">@inst.DateOfCreate</div>
+                <a href="#" class="button" onClick="document.forms.EditForm.submit();">Редагувати</a>
+        </div>
+    </div>
+    <div class="bl-title" id="@(inst.Id)">
+        @inst.Title
+    </div>
+    <div class="bl-description">
+        <p>@inst.Description</p>
+    </div>
+</div>
+
+
+
+}

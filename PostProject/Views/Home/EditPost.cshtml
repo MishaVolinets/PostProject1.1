@@ -1,0 +1,12 @@
+﻿@model PostProject.Models.PostModel
+@{
+    ViewBag.Title = "EditPost";
+}
+
+<h2>EditPost</h2>
+<form method="post" action="/Home/SavePost">
+    <input type="text" value="@Model.Title" name="Title" />
+    <input type="hidden" value="@Model.Id" name="Id" />
+    <textarea cols="20" rows="10" name="Description">@Model.Description</textarea>
+    <input type="submit" value="Зберегти" />
+</form>
