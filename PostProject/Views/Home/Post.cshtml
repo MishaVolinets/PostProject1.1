@@ -24,12 +24,13 @@
             </div>
         </div>
     </div>
+
 <div id="result"></div>
+
+
 <script type="text/javascript">
     $(document).ready(function () {
-        alert("Document ready");
         $('#submit').click(function () {
-            alert("submit clicked");
             var title = $("#Title").val();
             var description = $("#Description").val();
             $.ajax({
@@ -48,15 +49,13 @@
             type: "POST",
             dataType: "html",
             success: function (data) {
+                
                 $("#result").html(data);
             }
         });
-        $('.button').click(function () {
-            alert("Button click ready");
-            var ID = $("#ID").val();
 
-        });
     });
+
 
 </script>
     @*@if (Model != null)

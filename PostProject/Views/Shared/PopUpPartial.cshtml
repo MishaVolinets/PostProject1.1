@@ -1,0 +1,41 @@
+﻿@model PostProject.Models.PostModel
+
+    <div id="PU-block-Tit">
+        <input type="hidden" value="@Model.Id" id="ModelID" />
+        <div id="PU-Tit">
+            Title:
+        </div>
+        <div id="PU-in-Tit">
+            <textarea cols="15" rows="2.5" id="textTit">@Model.Title</textarea>
+        </div>
+    </div>
+    <div id="PU-block-Des">
+        <div id="PU-Des">
+            Description
+        </div>
+        <div id="PU-in-Des">
+            <textarea cols="30" rows="10" id="textDes">@Model.Description</textarea>
+        </div>
+    </div>
+    <div id="PU-block-Sub">
+        <button id="buttonSave">Зберегти</button>
+    </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#buttonSave").click(function () {
+            var Id = $("#ModelID").val();
+            var Title = $("#textTit").val();
+            var Description = $("#textDes").val();
+            $.ajax({
+                url: '@Url.Action("SavePost","Home")',
+                type: "POST",
+                dataType: "html",
+                data: {Title,Description, Id },
+                success: function (data) {
+                    $("#PU-block").css("display","none");
+                }
+            });
+        });
+    });
+</script>

@@ -58,16 +58,16 @@ namespace PostProject.Controllers
         public ActionResult EditPost(string id)
         {
             PostModel model = db.PostModel.Find(id);
-            return View(model);
+            return PartialView("PopUpPartial",model);
         }
 
         [HttpPost]
-        public ActionResult SavePost(PostModel model)
+        public void SavePost(PostModel model)
         {
             PostModel lastModel = db.PostModel.Find(model.Id);
             lastModel.Title = model.Title;
             lastModel.Description = model.Description;
-            return RedirectToAction("Post", Post());
+            db.SaveChanges();
         }
         [HttpPost]
         public ActionResult ShowAllPosts()

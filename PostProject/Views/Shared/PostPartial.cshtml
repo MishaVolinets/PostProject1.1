@@ -1,28 +1,57 @@
 ﻿@model IEnumerable<PostProject.Models.PostModel>
-
+<div id="PU-block"></div>
 @foreach (var inst in Model)
 {
-<input type="hidden" id="ID" value="@inst.Id" />
-<div class="bl-Main">
+<div class="bl-Main" id="@inst.Id">
     <div class="bl-info">
         <div class="bl-tit">
             <div class="name">Misha Volinets</div>
                 
-                <button class="button">Видалити</button>
+                <button class="buttonDel" value="@inst.Id" >Видалити</button>
         </div>
         <div class="bl-tit">
             <div class="date">@inst.DateOfCreate</div>
-                <a href="#" class="button" onClick="document.forms.EditForm.submit();">Редагувати</a>
+            <button class="buttonEdit" value="@inst.Id">Редагувати</button>
         </div>
     </div>
-    <div class="bl-title" id="@(inst.Id)">
+    <div class="bl-title" >
         @inst.Title
     </div>
     <div class="bl-description">
         <p>@inst.Description</p>
     </div>
 </div>
-
-
-
 }
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $(".buttonDel").click(function () {
+            var ID = $(this).val();
+            $.ajax({
+                url: '@Url.Action("DeletePost","Home")',
+                type: "POST",
+                dataType: "html",
+                data: { id: ID },
+                success: function (data) {
+                    $("#" + ID).remove();
+                }
+            });
+        });
+        $(".buttonEdit").click(function () {
+            var ID = $(this).val();
+            $.ajax({
+                url: '@Url.Action("EditPost","Home")',
+                type: "POST",
+                data: {id: ID},
+                dataType: "html",
+                success: function (data) {
+                    $("#PU-block").css("display","block");
+                    $("#PU-block").html(data);
+                }
+            });
+        });
+
+    });
+
+
+</script>

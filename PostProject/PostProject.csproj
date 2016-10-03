@@ -288,6 +288,7 @@
     <Content Include="Views\Home\Post.cshtml" />
     <Content Include="Views\Home\EditPost.cshtml" />
     <Content Include="Views\Shared\PostPartial.cshtml" />
+    <Content Include="Views\Shared\PopUpPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201609281040511_init.resx">
