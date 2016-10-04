@@ -68,7 +68,29 @@
             $("#textTit").val(Title);
             $("#textDes").val(Description);
             $("#PU-block").css("display", "block");
+
+            $('#textTit').focus(function (e) {
+                var TextField = $("#titId_" + ID);
+                var text;
+                $("#textTit").keyup(function (e) {
+                    text = $("#textTit").val();
+                    TextField.html("<p>" + text + "</p>");
+                })
+            });
+
+            $('#textDes').focus(function (e) {
+                var DescField = $("#descId_" + ID);
+                var text;
+                $("#textDes").keyup(function (e) {
+                    text = $("#textDes").val();
+                    DescField.html("<p>" + text + "</p>");
+                })
+            });
+
+
         });
+
+
         $("#buttonSave").click(function () {
             var Id = $("#buttonSave").val();
             var Title = $("#textTit").val();
@@ -85,6 +107,7 @@
             });
 
         });
+
     });
 
 
