@@ -115,7 +115,7 @@
 #PU-block{
 	margin: 10px;
 	width: 300px;
-	position: absolute;
+	position: fixed;
 	border: 1px solid black;
     left:40%;
     top: 25%;

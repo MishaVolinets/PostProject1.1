@@ -1,5 +1,28 @@
 ﻿@model IEnumerable<PostProject.Models.PostModel>
-<div id="PU-block"></div>
+
+<div id="PU-block">
+    <div id="PU-block-Tit">
+        <input type="hidden" value="" id="ModelID" />
+        <div id="PU-Tit">
+            Title:
+        </div>
+        <div id="PU-in-Tit">
+            <textarea cols="15" rows="2.5" id="textTit"></textarea>
+        </div>
+    </div>
+    <div id="PU-block-Des">
+        <div id="PU-Des">
+            Description
+        </div>
+        <div id="PU-in-Des">
+            <textarea cols="30" rows="10" id="textDes"></textarea>
+        </div>
+    </div>
+    <div id="PU-block-Sub">
+        <button id="buttonSave">Зберегти</button>
+    </div>
+</div>
+
 @foreach (var inst in Model)
 {
 <div class="bl-Main" id="@inst.Id">
@@ -14,10 +37,10 @@
             <button class="buttonEdit" value="@inst.Id">Редагувати</button>
         </div>
     </div>
-    <div class="bl-title" >
+    <div class="bl-title" id="titId_@inst.Id">
         @inst.Title
     </div>
-    <div class="bl-description">
+    <div class="bl-description" id="descId_@inst.Id">
         <p>@inst.Description</p>
     </div>
 </div>
@@ -39,18 +62,29 @@
         });
         $(".buttonEdit").click(function () {
             var ID = $(this).val();
+            var Title = $("#titId_" + ID).text().trim();
+            var Description = $("#descId_" + ID).text().trim();
+            $("#buttonSave").val(ID);
+            $("#textTit").val(Title);
+            $("#textDes").val(Description);
+            $("#PU-block").css("display", "block");
+        });
+        $("#buttonSave").click(function () {
+            var Id = $("#buttonSave").val();
+            var Title = $("#textTit").val();
+            var Description = $("#textDes").val();
             $.ajax({
-                url: '@Url.Action("EditPost","Home")',
+                url: '@Url.Action("SavePost","Home")',
                 type: "POST",
-                data: {id: ID},
-                dataType: "html",
+                data: { Id, Title, Description },
                 success: function (data) {
-                    $("#PU-block").css("display","block");
-                    $("#PU-block").html(data);
+                    $("#titId_" + Id).text(Title);
+                    $("#descId_" + Id).html("<p>"+Description+"</p>");
+                    $("#PU-block").css("display", "none");
                 }
             });
-        });
 
+        });
     });
 
 
